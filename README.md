@@ -1,6 +1,6 @@
 # SBA - Landing Page
 
-![SBA Banner](https://i.postimg.cc/jqJHkw5D/image.png)
+![SBA Banner](https://i.postimg.cc/mktkk9Wm/image.png)
 
 ## 🌐 Live Website
 🔗 [www.sunilbhor.com](http://www.sunilbhor.com)
@@ -19,13 +19,24 @@ Additionally, I implemented an **Appointment System** to facilitate seamless sch
 
 ## 📂 Project Structure
 ```
-├── app/            # Next.js App Router setup
-├── components/     # Reusable UI components
-├── public/         # Static assets
-├── styles/         # Global Tailwind styles
-├── lib/            # Helper functions & utilities
-├── api/            # API routes
-└── README.md       # Documentation
+
+├── app/                # Next.js App Router setup
+├── components/         # Reusable UI components
+├── constants/          # Application constants
+├── context/            # React context providers
+├── data/               # Data files or configurations
+├── emails/             # Email templates or related functions
+├── hooks/              # Custom React hooks
+├── lib/                # Helper functions & utilities
+├── public/             # Static assets
+├── types/              # TypeScript type definitions
+├── README.md           # Project documentation
+├── next.config.mjs     # Next.js configuration
+├── package.json        # Project dependencies and scripts
+├── tailwind.config.ts  # Tailwind CSS configuration
+└── tsconfig.json       # TypeScript configuration
+
+
 ```
 
 ## ⚡ Getting Started
@@ -40,16 +51,30 @@ cd SBA
 ```bash
 npm install
 ```
+### 3️⃣ Set Up Environment Variables
+Create a `.env.local` file in the root directory and add the required credentials:  
 
-### 3️⃣ Run the Development Server
+```env
+PROJECT_ID=
+API_KEY=
+DATABASE_ID=
+CLIENT_ID=
+APPOINTMENT_COLLECTION_ID=
+NEXT_PUBLIC_ENDPOINT=https://cloud.appwrite.io/v1
+NEXT_PUBLIC_ADMIN_PASSKEY=
+SENTRY_AUTH_TOKEN=       
+ADMIN_USER_ID=
+RESEND_API_KEY=
+NEXT_PUBLIC_WEBSITE_LINK=
+NEXT_PUBLIC_CRISP_WEBSITE_ID=
+```
+
+### 4️⃣ Run the Development Server
 ```bash
 npm run dev
 ```
 The app should now be running on `http://localhost:3000`
 
-## 📸 Screenshots
-### 📍 Landing Page
-![Landing Page Preview](https://i.postimg.cc/jqJHkw5D/image.png)
 
 ## 🎯 Features
 ✅ **Fully Responsive** - Works on all devices.
