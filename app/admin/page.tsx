@@ -8,33 +8,7 @@ const AdminPage = async () => {
   const appointments = await getRecentAppointmentList();
   Sentry.metrics.set('user_view_admin', 'client');
 
-  // Get the current time in IST
-  const currentISTTime = new Date().toLocaleString('en-US', {
-    timeZone: 'Asia/Kolkata',
-    hour: 'numeric',
-    hour12: false,
-  });
-  const indianTime = parseInt(currentISTTime, 10); // convert to an integer
-
-  let greeting: string;
-  let timeOfDay: string;
-
-  if (indianTime >= 0 && indianTime <= 12) {
-    greeting = 'Good Morning 🌄';
-  } else if (indianTime > 12 && indianTime <= 18) {
-    greeting = 'Good Afternoon ⛅';
-  } else {
-    greeting = 'Good Evening 🌃';
-  }
-
-  if (indianTime >= 0 && indianTime <= 12) {
-    timeOfDay = 'Start';
-  } else if (indianTime > 12 && indianTime <= 18) {
-    timeOfDay = 'Continue';
-  } else {
-    timeOfDay = 'End';
-  }
-
+  
   return (
     <div className='w-full h-full  bg-black'>
       <div className='mx-auto flex max-w-7xl flex-col space-y-20'>
@@ -42,7 +16,7 @@ const AdminPage = async () => {
           <section className='w-full space-y-4'>
             <h1 className='header mt-2'>Welcome 👋</h1>
             <p className='text-dark-700'>
-              {greeting}! {timeOfDay} the day with managing new appointments.
+             Manage your appointments. 
             </p>
           </section>
 
