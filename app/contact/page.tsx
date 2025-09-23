@@ -241,14 +241,14 @@ const ContactPage = () => {
           </div>
 
           {/* Contact Details */}
-          <div className='px-5 sm:px-4 py-3 md:mt-5'>
+          <div className='py-3 md:mt-5'>
             <div className='py-4 mb-7 px-4 rounded-xl'>
               <h2 className='text-2xl text-center sm:text-left font-medium mb-6'>
                 Contact Details
               </h2>
               <div className='flex flex-col gap-1'>
-                <div className='text-slate-300 inline-flex gap-7 items-center px-3'>
-                  <FaLocationDot className='sm:w-6 sm:h-6 h-10 w-10' />
+                <div className='text-slate-300 inline-flex gap-5 sm:gap-7 items-center px-3'>
+                  <FaLocationDot className='sm:size-6 size-8' />
                   <p className='text-pretty tracking-tight	'>
                     Regd. Office: 8, First Floor, Rambaug Society, Vidya Vikas
                     Circle, Gangapur Road, Nashik-422013
@@ -300,7 +300,7 @@ const ContactPage = () => {
               </div>
             </div>
             {/* Google Maps Embed */}
-            <div className='text-center mx-auto'>
+            <div className='text-center mx-auto px-5'>
               <iframe
                 className='rounded-lg w-full'
                 src='https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14995.89229266695!2d73.7664801!3d20.0096448!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bddea4d3d397d1f%3A0x69841f86cbb89521!2sSunil%20Bhor%20and%20Associates!5e0!3m2!1sen!2sin!4v1719696639207!5m2!1sen!2sin'
