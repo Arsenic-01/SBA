@@ -149,7 +149,7 @@ export const sendFollowUpEmailNotification = async (appointment: any) => {
     name: appointment.client.name,
     time: formatDateTime(appointment.schedule).dateTime,
     message: appointment.cancellationReason || 'No message provided',
-    type: isScheduled ? 'success' : 'cancelled',
+    type: isScheduled ? 'success' : 'cancellation',
   });
 
   await sendEmail({
