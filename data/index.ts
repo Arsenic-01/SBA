@@ -145,9 +145,9 @@ export const navItems = [
   { path: '/services', display: 'Services' },
   { path: '/projects', display: 'Projects' },
   { path: '/about', display: 'About' },
-  { path: '/awards-and-recognition', display: 'Awards & Recognition' },
+  { path: '/about/awards-and-recognition', display: 'Awards & Recognition' },
   {
-    path: '/certifications-and-licenses',
+    path: '/about/certifications-and-licenses',
     display: 'Certifications & Licenses',
   },
   { path: '/contact', display: 'Contact' },
