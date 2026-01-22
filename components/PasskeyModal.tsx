@@ -39,7 +39,7 @@ export const PasskeyModal = () => {
     if (path)
       if (accessKey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY!.toString()) {
         setOpen(false);
-        router.push('/admin');
+        router.replace('/admin');
         toast.success('Admin Access Successful🎉');
       } else {
         setOpen(true);
@@ -48,7 +48,7 @@ export const PasskeyModal = () => {
 
   const closeModal = () => {
     setOpen(false);
-    router.push('/login');
+    router.replace('/login');
   };
 
   const validatePasskey = (

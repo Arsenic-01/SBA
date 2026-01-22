@@ -142,10 +142,11 @@ export const ProjectData = [
 ];
 
 export const navItems = [
-  { path: '/services', display: 'Services', id: 1 },
-  { path: '/projects', display: 'Projects', id: 2 },
-  { path: '/about', display: 'About', id: 3 },
-  { path: '/contact', display: 'Contact', id: 4 },
+  { path: '/services', display: 'Services' },
+  { path: '/projects', display: 'Projects' },
+  { path: '/about', display: 'About' },
+  { path: '/contact', display: 'Contact' },
+  { path: '/resources', display: 'Resources' },
 ];
 
 export const linkdata = [
@@ -163,9 +164,9 @@ export const linkdata = [
   },
   {
     id: 3,
-    link: '#',
-    title: 'Portfolio',
-    next: false,
+    link: '/resources',
+    title: 'Resources',
+    next: true,
   },
   {
     id: 4,

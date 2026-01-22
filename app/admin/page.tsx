@@ -1,3 +1,4 @@
+import AdminLogoutButton from '@/components/AdminLogoutButton';
 import { StatCard } from '@/components/StatCard';
 import { columns } from '@/components/table/columns';
 import { DataTable } from '@/components/table/DataTable';
@@ -7,17 +8,16 @@ import * as Sentry from '@sentry/nextjs';
 const AdminPage = async () => {
   const appointments = await getRecentAppointmentList();
   Sentry.metrics.set('user_view_admin', 'client');
-
-  
   return (
     <div className='w-full h-full  bg-black'>
       <div className='mx-auto flex max-w-7xl flex-col space-y-20'>
         <main className='admin-main mt-20 md:py-10'>
-          <section className='w-full space-y-4'>
-            <h1 className='header mt-2'>Welcome 👋</h1>
-            <p className='text-dark-700'>
-             Manage your appointments. 
-            </p>
+          <section className='flex justify-between items-start w-full'>
+            <div className='w-full space-y-4'>
+              <h1 className='header mt-2'>Welcome 👋</h1>
+              <p className='text-dark-700'>Manage your appointments.</p>
+            </div>
+            <AdminLogoutButton />
           </section>
 
           <section className='admin-stat'>

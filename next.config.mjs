@@ -6,9 +6,11 @@ const nextConfig = {
     domains: [
       'lh3.googleusercontent.com',
       'images.unsplash.com',
+      'plus.unsplash.com',
       'assets.aceternity.com',
       'asset.cloudinary.com',
       'res.cloudinary.com',
+      'cloud.appwrite.io',
     ],
   },
 };
