@@ -14,13 +14,17 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import {
-  Download,
   FileText,
   Calendar,
   Maximize2,
   ArrowUpRight,
   ExternalLink,
+  Play,
 } from 'lucide-react';
+import MediaLightbox, {
+  ActiveMediaState,
+  GalleryMedia,
+} from '@/components/MediaLightbox';
 
 // --- Types ---
 type Brochure = {
@@ -34,8 +38,8 @@ type Brochure = {
 type Achievement = {
   id: string;
   title: string;
-  loc: string; // Used as Category (Award vs Certification)
-  type: string; // Used as Year
+  loc: string;
+  type: string;
   description: string;
   imgSrc: string;
   pdfUrl?: string;
@@ -70,7 +74,6 @@ const achievements: Achievement[] = [
       'Issued by Business Excellence Forum for outstanding performance in asset valuation.',
     imgSrc:
       'https://plus.unsplash.com/premium_photo-1714138490052-65c64d8db2e0?q=80&w=1170&auto=format&fit=crop',
-    // Awards might have a PDF, but the button won't show due to logic below
     pdfUrl: '#',
   },
   {
@@ -99,28 +102,49 @@ const achievements: Achievement[] = [
   },
 ];
 
+// --- 3. Data: Gallery ---
+const galleryItems: GalleryMedia[] = [
+  {
+    src: 'https://res.cloudinary.com/dmdci86wv/image/upload/v1758157475/0ae133f7-2dd8-4322-a95b-e5bfde8605d8_zn9rqr.jpg',
+    alt: 'Team Meeting',
+    type: 'image',
+  },
+  {
+    src: 'https://res.cloudinary.com/dmdci86wv/video/upload/v1758157968/Sba_responsive_mtxkwv.mp4',
+    alt: 'Corporate Event Video',
+    type: 'video', // Provide a valid video URL
+  },
+  {
+    src: 'https://res.cloudinary.com/dmdci86wv/image/upload/v1758159166/e9c40cdf-9f56-4d7c-86f9-9a20a183e65f.png',
+    alt: 'Office Interior',
+    type: 'image',
+  },
+  {
+    src: 'https://res.cloudinary.com/dmdci86wv/image/upload/v1758157460/e37913eb-6b06-483c-8906-af9313a62f72_yd3bnd.jpg',
+    alt: 'Workshop Session',
+    type: 'image',
+  },
+];
+
 const ResourcesPage = () => {
-  const [selectedItem, setSelectedItem] = useState<Achievement | null>(null);
+  // State for Awards Modal
+  const [selectedAward, setSelectedAward] = useState<Achievement | null>(null);
 
-  const openModal = (item: Achievement) => {
-    setSelectedItem(item);
-  };
-
-  const closeModal = () => {
-    setSelectedItem(null);
-  };
+  // State for Gallery Lightbox
+  const [activeGallery, setActiveGallery] = useState<ActiveMediaState | null>(
+    null
+  );
 
   return (
     <div className='flex flex-col w-full h-full py-14 sm:py-20 xl:py-6 2xl:py-12 gap-5 bg-black justify-center items-center text-neutral-200'>
       <div className='xl:max-w-5xl 2xl:max-w-6xl w-full px-4 md:px-8 mb-10'>
         <BreadcrumbWithCustomSeparator currentPage='Resources' />
 
-        {/* --- Brochures Table --- */}
+        {/* --- SECTION 1: BROCHURES --- */}
         <div className='mt-10 mb-16'>
           <h2 className='text-xl font-semibold text-white mb-6 px-1'>
             Company Brochures
           </h2>
-
           <div className='rounded-xl border border-[#353535] bg-black overflow-hidden'>
             <div className='overflow-x-auto'>
               <Table>
@@ -186,12 +210,11 @@ const ResourcesPage = () => {
           </div>
         </div>
 
-        {/* --- Awards Grid --- */}
-        <div>
+        {/* --- SECTION 2: AWARDS --- */}
+        <div className='mb-16'>
           <h2 className='text-xl font-semibold text-white mb-6 px-1'>
             Awards & Certifications
           </h2>
-
           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-7'>
             {achievements.map((item) => (
               <div
@@ -200,10 +223,9 @@ const ResourcesPage = () => {
               >
                 <div className='flex flex-col gap-4 justify-between w-full h-full'>
                   <div>
-                    {/* Image Area (Thumbnail) */}
                     <div
                       className='w-full h-48 xl:h-36 2xl:h-44 relative overflow-hidden rounded-t-lg group'
-                      onClick={() => openModal(item)}
+                      onClick={() => setSelectedAward(item)}
                     >
                       <Image
                         src={item.imgSrc}
@@ -217,12 +239,9 @@ const ResourcesPage = () => {
                         <Maximize2 className='text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-lg' />
                       </div>
                     </div>
-
-                    {/* Content Area */}
                     <h1 className='mt-3 text-lg lg:text-xl px-3 text-neutral-100 font-medium'>
                       {item.title}
                     </h1>
-
                     <div className='flex gap-2 font-semibold text-sm mt-2 flex-wrap mb-3 px-3'>
                       <div className='bg-blue-900/30 text-blue-400 border border-blue-900/50 rounded-md px-2 py-1'>
                         {item.loc}
@@ -231,7 +250,6 @@ const ResourcesPage = () => {
                         {item.type}
                       </div>
                     </div>
-
                     <p className='text-neutral-400 my-2 text-sm px-3 line-clamp-2'>
                       {item.description}
                     </p>
@@ -241,55 +259,98 @@ const ResourcesPage = () => {
             ))}
           </div>
         </div>
+
+        {/* --- SECTION 3: GALLERY --- */}
+        <div>
+          <h2 className='text-xl font-semibold text-white mb-6 px-1'>
+            Gallery
+          </h2>
+          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+            {galleryItems.map((media, index) => (
+              <div
+                key={index}
+                className='group relative aspect-square cursor-pointer overflow-hidden rounded-xl border border-[#353535] bg-neutral-900'
+                onClick={() =>
+                  setActiveGallery({ gallery: galleryItems, index })
+                }
+              >
+                {media.type === 'image' ? (
+                  <Image
+                    src={media.src}
+                    alt={media.alt}
+                    fill
+                    className='object-cover transition-transform duration-500 group-hover:scale-110'
+                  />
+                ) : (
+                  // Thumbnail for video: We auto-play muted on hover effect logic or just show a static thumb if available
+                  <>
+                    <video
+                      src={media.src}
+                      muted
+                      playsInline
+                      className='h-full w-full object-cover opacity-80 group-hover:opacity-60 transition-opacity'
+                    />
+                    <div className='absolute inset-0 flex items-center justify-center'>
+                      <div className='rounded-full bg-white/20 p-3 backdrop-blur-sm transition-transform group-hover:scale-110'>
+                        <Play className='h-6 w-6 text-white fill-white' />
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* Overlay on hover */}
+                <div className='absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/20' />
+                <div className='absolute bottom-0 left-0 right-0 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100'>
+                  <p className='text-sm font-medium text-white truncate'>
+                    {media.alt}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
-      {/* --- MODAL --- */}
-      {selectedItem && (
+      {/* --- MODAL FOR AWARDS (Existing Logic) --- */}
+      {selectedAward && (
         <div
           className='fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 backdrop-blur-sm p-4'
-          onClick={closeModal}
+          onClick={() => setSelectedAward(null)}
         >
           <div className='relative max-w-4xl w-full flex flex-col items-center justify-center'>
-            {/* Full Image */}
             <div className='relative w-full h-auto max-h-[80vh] flex justify-center'>
               <Image
-                src={selectedItem.imgSrc}
-                alt={selectedItem.title}
+                src={selectedAward.imgSrc}
+                alt={selectedAward.title}
                 className='rounded-lg select-none object-contain max-h-[75vh] w-auto shadow-2xl'
                 width={1200}
                 height={800}
                 quality={100}
               />
             </div>
-
-            {/* Actions Bar */}
             <div
               className='flex items-center gap-4 mt-6'
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Logic: Show button ONLY if it is a 'Certification' 
-                  AND a URL exists. 
-               */}
-              {selectedItem.pdfUrl && selectedItem.loc === 'Certification' && (
-                <Button
-                  asChild
-                  className='bg-white text-black hover:bg-neutral-200 rounded-full font-bold shadow-lg transition-transform hover:scale-105 px-6'
-                >
-                  <a
-                    href={selectedItem.pdfUrl}
-                    target='_blank'
-                    rel='noopener noreferrer'
+              {selectedAward.pdfUrl &&
+                selectedAward.loc === 'Certification' && (
+                  <Button
+                    asChild
+                    className='bg-white text-black hover:bg-neutral-200 rounded-full font-bold shadow-lg transition-transform hover:scale-105 px-6'
                   >
-                    <ExternalLink className='w-4 h-4 mr-2' />
-                    View Official Document
-                  </a>
-                </Button>
-              )}
-
-              {/* Close Button */}
+                    <a
+                      href={selectedAward.pdfUrl}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
+                      <ExternalLink className='w-4 h-4 mr-2' />
+                      View Official Document
+                    </a>
+                  </Button>
+                )}
               <button
                 className='bg-neutral-800 text-white hover:bg-neutral-700 px-4 py-2 rounded-full font-bold shadow-lg transition-colors border border-neutral-700'
-                onClick={closeModal}
+                onClick={() => setSelectedAward(null)}
               >
                 Close
               </button>
@@ -297,6 +358,12 @@ const ResourcesPage = () => {
           </div>
         </div>
       )}
+
+      {/* --- MODAL FOR GALLERY (New MediaLightbox) --- */}
+      <MediaLightbox
+        activeMedia={activeGallery}
+        onClose={() => setActiveGallery(null)}
+      />
     </div>
   );
 };
