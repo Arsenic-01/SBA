@@ -56,7 +56,7 @@ const brochures: Brochure[] = [
   },
   {
     id: '2',
-    name: 'Valuation_Services_Overview.pdf',
+    name: 'Valuation_Brochure_2025.pdf',
     size: '586.6 KB',
     date: 'Jan 22, 2026',
     url: 'https://fra.cloud.appwrite.io/v1/storage/buckets/6971f65800093fbc154a/files/6971f6700003c4e0e980/view?project=67c065d100187f05a736&mode=admin',
