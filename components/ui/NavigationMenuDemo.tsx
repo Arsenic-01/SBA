@@ -16,14 +16,17 @@ import { useRouter } from 'next/navigation';
 const aboutData = [
   {
     title: '🌐 About Company',
+    description: 'Learn more about SBA',
     href: '/about',
   },
   {
     title: '🏆 Awards and Recognition',
+    description: 'Our achievements and accolades',
     href: '/about/awards-and-recognition',
   },
   {
-    title: '📜 Certifications and Licenses',
+    title: '📜 Certifications & Licenses',
+    description: 'Our official certifications and licenses',
     href: '/about/certifications-and-licenses',
   },
 ];
@@ -155,25 +158,31 @@ const NavigationMenuContents = () => {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <Link href='/about' legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              About
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuTrigger aria-haspopup='true'>
+            About
+          </NavigationMenuTrigger>
+          <NavigationMenuContent className='left-0'>
+            <ul className='grid grid-cols-1 w-[400px] gap-3 p-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]'>
+              {aboutData.map((component, index) => (
+                <ListItem
+                  className=' hover:cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800/70 rounded-md'
+                  key={index}
+                  title={component.title}
+                  description={component.description}
+                  href={component.href}
+                  onClick={() => {
+                    router.push(component.href);
+                  }}
+                />
+              ))}
+            </ul>
+          </NavigationMenuContent>
         </NavigationMenuItem>
 
         <NavigationMenuItem>
           <Link href='/contact' legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Contact
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-
-        <NavigationMenuItem>
-          <Link href='/resources' legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Resources
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
@@ -203,7 +212,7 @@ const ListItem = React.forwardRef<
       >
         <div className='text-sm font-medium leading-none'>{title}</div>
         {description && (
-          <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
+          <p className='py-2 text-sm leading-snug text-muted-foreground'>
             {description}
           </p>
         )}

@@ -145,8 +145,12 @@ export const navItems = [
   { path: '/services', display: 'Services' },
   { path: '/projects', display: 'Projects' },
   { path: '/about', display: 'About' },
+  { path: '/awards-and-recognition', display: 'Awards & Recognition' },
+  {
+    path: '/certifications-and-licenses',
+    display: 'Certifications & Licenses',
+  },
   { path: '/contact', display: 'Contact' },
-  { path: '/resources', display: 'Resources' },
 ];
 
 export const linkdata = [
@@ -164,9 +168,9 @@ export const linkdata = [
   },
   {
     id: 3,
-    link: '/resources',
-    title: 'Resources',
-    next: true,
+    link: 'https://drive.google.com/file/d/16REwXjaCwLsSbQybi3fC7E88sqjR5VPt/view?usp=sharing',
+    title: 'Portfolio',
+    next: false,
   },
   {
     id: 4,
